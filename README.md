@@ -1,6 +1,6 @@
 ![Plugin Icon](resources/img/icon.png)
 
-# Entries Subset plugin for Craft CMS 4.x
+# Entries Subset plugin for Craft CMS 5.x
 
 Craft field type plugin that extends the core Entries field type to give extra settings with ability to restrict by entry type, author or author's user group.
 
@@ -10,7 +10,7 @@ Craft field type plugin that extends the core Entries field type to give extra s
 
 ## Requirements
 
-This plugin requires Craft CMS 4.0.0 or later.
+This plugin requires Craft CMS 5.3.0 or later.
 
 ## Installation
 

@@ -1,5 +1,9 @@
 # Entries Subset Changelog
 
+## Unreleased
+
+- Entries Subset now requires Craft CMS 5.3.0 or later. ([#31](https://github.com/nfourtythree/entriessubset/issues/31))
+
 ## 2.1.0 - 2022-09-26
 
 ### Changed

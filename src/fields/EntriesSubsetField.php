@@ -96,6 +96,7 @@ class EntriesSubsetField extends Entries
         return parent::getSettingsHtml() . Craft::$app->getView()->renderTemplate('entriessubset/settings', [
             'settings' => $this->getSettings(),
             'entryTypesBySection' => $service->getEntryTypeOptions(),
+            'entryTypes' => $service->getEntryTypes(),
             'userGroups' => $service->getUserGroups(),
             'users' => $service->getUsers(),
             'type' => self::displayName(),
@@ -116,7 +117,7 @@ class EntriesSubsetField extends Entries
                 $typeId = Db::idByUid(Table::ENTRYTYPES, $typeUid);
 
                 if (is_numeric($typeId)) {
-                    $entryType = Craft::$app->sections->getEntryTypeById($typeId);
+                    $entryType = Craft::$app->getEntries()->getEntryTypeById($typeId);
 
                     // Make sure there is a valid entry type
                     if ($entryType !== null) {

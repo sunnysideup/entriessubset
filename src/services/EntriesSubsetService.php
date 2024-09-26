@@ -14,6 +14,7 @@ use Craft;
 use craft\base\Component;
 use craft\elements\User;
 use craft\helpers\ArrayHelper;
+use craft\models\EntryType;
 use yii\base\InvalidConfigException;
 
 /**
@@ -35,16 +36,7 @@ class EntriesSubsetService extends Component
      */
     public function getEntryTypes(): array
     {
-        $sections = Craft::$app->sections->getAllSections();
-        $entryTypes = [];
-
-        if (!empty($sections)) {
-            foreach ($sections as $section) {
-                $entryTypes[$section->handle] = Craft::$app->sections->getEntryTypesBySectionId($section->id);
-            }
-        }
-
-        return $entryTypes;
+        return ArrayHelper::index(Craft::$app->getEntries()->getAllEntryTypes(), 'handle');
     }
 
     /**
@@ -53,20 +45,13 @@ class EntriesSubsetService extends Component
      */
     public function getEntryTypeOptions(): array
     {
-        $sectionIds = Craft::$app->sections->getAllSectionIds();
-        $entryTypes = [];
+        $sections = Craft::$app->getEntries()->getAllSections();
 
-        foreach ($sectionIds as $id) {
-            $entryTypes = [...$entryTypes, ...Craft::$app->sections->getEntryTypesBySectionId($id)];
-        }
+        $entryTypeOptions = array_map(function(EntryType $et) {
+            return ['label' => $et->name, 'value' => $et->uid];
+        }, Craft::$app->getEntries()->getAllEntryTypes());
 
-        $entryTypeOptions = ['*' => []];
-        foreach ($entryTypes as $type) {
-            if (!isset($entryTypeOptions[$type->getSection()->handle])) {
-                $entryTypeOptions[$type->getSection()->handle] = [];
-            }
-            $entryTypeOptions[$type->getSection()->handle][] = ['label' => $type->name, 'value' => $type->uid];
-        }
+        ArrayHelper::multisort($entryTypeOptions, 'label');
 
         return $entryTypeOptions;
     }
@@ -79,7 +64,7 @@ class EntriesSubsetService extends Component
     public function getUserGroups(): array
     {
         $userGroups = [];
-        $allUserGroups = Craft::$app->userGroups->getAllGroups();
+        $allUserGroups = Craft::$app->getUserGroups()->getAllGroups();
 
         if (count($allUserGroups)) {
             $userGroups = ArrayHelper::map($allUserGroups, 'id', 'name');
