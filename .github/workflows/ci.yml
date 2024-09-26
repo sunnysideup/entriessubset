@@ -3,10 +3,10 @@ on:
   workflow_dispatch:
   push:
     branches:
-      - develop
+      - '3.x'
   pull_request:
     branches:
-      - develop
+      - '3.x'
 concurrency:
   group: ci-${{ github.ref }}
   cancel-in-progress: true
@@ -15,9 +15,9 @@ jobs:
     name: ECS
     uses: craftcms/.github/.github/workflows/ecs.yml@v2
     with:
-      php_version: '8.0'
+      php_version: '8.2'
   phpstan:
     name: PHPStan
     uses: craftcms/.github/.github/workflows/phpstan.yml@v2
     with:
-      php_version: '8.0'
+      php_version: '8.2'
