@@ -25,7 +25,6 @@
 </p>
 
 {# Entry Types #}
-{% set class = 'all' %}
 {% set label = 'Entry Types'|t %}
 {% set instructions = 'From below select the entry types by which you wish to restrict entry selection'|t %}
 {% set warning = 'Entries fields now support limiting entry selection by entry using the {field} above.'|t('entriessubset', {field: 'Selectable Entries Condition'|t('app')}) %}
@@ -35,9 +34,8 @@
   instructions: instructions,
   id: 'entryTypes',
   name: 'entryTypes',
-  options: entryTypesBySection,
+  options: entryTypeOptions,
   values: settings.entryTypes,
-  class: class,
   warning: warning,
   tip: tip,
 })}}

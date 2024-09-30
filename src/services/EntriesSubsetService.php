@@ -15,6 +15,7 @@ use craft\base\Component;
 use craft\elements\User;
 use craft\helpers\ArrayHelper;
 use craft\models\EntryType;
+use craft\models\Section;
 use yii\base\InvalidConfigException;
 
 /**
@@ -45,10 +46,18 @@ class EntriesSubsetService extends Component
      */
     public function getEntryTypeOptions(): array
     {
-        $sections = Craft::$app->getEntries()->getAllSections();
-
         $entryTypeOptions = array_map(function(EntryType $et) {
-            return ['label' => $et->name, 'value' => $et->uid];
+
+            $name = Craft::t('site', $et->name);
+            $usages = array_filter($et->findUsages(), fn($usage) => $usage instanceof Section);
+            if (!empty($usages)) {
+                $name = Craft::t('site', '{entryType} ({sections})', [
+                    'entryType' => $name,
+                    'sections' => implode(', ', array_map(fn(Section $section) => $section->name, $usages))
+                ]);
+            }
+
+            return ['label' => $name, 'value' => $et->uid];
         }, Craft::$app->getEntries()->getAllEntryTypes());
 
         ArrayHelper::multisort($entryTypeOptions, 'label');

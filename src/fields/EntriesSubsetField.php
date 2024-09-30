@@ -95,8 +95,7 @@ class EntriesSubsetField extends Entries
 
         return parent::getSettingsHtml() . Craft::$app->getView()->renderTemplate('entriessubset/settings', [
             'settings' => $this->getSettings(),
-            'entryTypesBySection' => $service->getEntryTypeOptions(),
-            'entryTypes' => $service->getEntryTypes(),
+            'entryTypeOptions' => $service->getEntryTypeOptions(),
             'userGroups' => $service->getUserGroups(),
             'users' => $service->getUsers(),
             'type' => self::displayName(),
