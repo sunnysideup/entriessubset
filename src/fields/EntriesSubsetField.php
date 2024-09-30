@@ -116,12 +116,7 @@ class EntriesSubsetField extends Entries
                 $typeId = Db::idByUid(Table::ENTRYTYPES, $typeUid);
 
                 if (is_numeric($typeId)) {
-                    $entryType = Craft::$app->sections->getEntryTypeById($typeId);
-
-                    // Make sure there is a valid entry type
-                    if ($entryType !== null) {
-                        $vars['criteria']['type'][] = $entryType->handle;
-                    }
+                    $vars['criteria']['typeId'][] = $typeId;
                 }
             }
         }
