@@ -53,19 +53,20 @@ class EntriesSubsetService extends Component
      */
     public function getEntryTypeOptions(): array
     {
-        $sectionIds = Craft::$app->sections->getAllSectionIds();
+        $sections = Craft::$app->sections->getAllSections();
         $entryTypes = [];
 
-        foreach ($sectionIds as $id) {
-            $entryTypes = [...$entryTypes, ...Craft::$app->sections->getEntryTypesBySectionId($id)];
-        }
-
-        $entryTypeOptions = ['*' => []];
-        foreach ($entryTypes as $type) {
-            if (!isset($entryTypeOptions[$type->getSection()->handle])) {
-                $entryTypeOptions[$type->getSection()->handle] = [];
+        $entryTypeOptions = [];
+        foreach ($sections as $section) {
+            foreach ($section->getEntryTypes() as $entryType) {
+                $entryTypeOptions[] = [
+                    'label' => Craft::t('site', '{entryType} ({section})', [
+                        'entryType' => $entryType->name,
+                        'section' => $section->name
+                    ]),
+                    'value' => $entryType->uid,
+                ];
             }
-            $entryTypeOptions[$type->getSection()->handle][] = ['label' => $type->name, 'value' => $type->uid];
         }
 
         return $entryTypeOptions;

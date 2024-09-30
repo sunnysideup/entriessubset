@@ -94,12 +94,12 @@ class EntriesSubsetField extends Entries
         $service = Plugin::getInstance()->getService();
 
         return parent::getSettingsHtml() . Craft::$app->getView()->renderTemplate('entriessubset/settings', [
-            'settings' => $this->getSettings(),
-            'entryTypesBySection' => $service->getEntryTypeOptions(),
-            'userGroups' => $service->getUserGroups(),
-            'users' => $service->getUsers(),
-            'type' => self::displayName(),
-        ]);
+                'settings' => $this->getSettings(),
+                'entryTypeOptions' => $service->getEntryTypeOptions(),
+                'userGroups' => $service->getUserGroups(),
+                'users' => $service->getUsers(),
+                'type' => self::displayName(),
+            ]);
     }
 
     /**
