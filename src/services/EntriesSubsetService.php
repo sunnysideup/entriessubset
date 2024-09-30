@@ -62,7 +62,7 @@ class EntriesSubsetService extends Component
                 $entryTypeOptions[] = [
                     'label' => Craft::t('site', '{entryType} ({section})', [
                         'entryType' => $entryType->name,
-                        'section' => $section->name
+                        'section' => $section->name,
                     ]),
                     'value' => $entryType->uid,
                 ];
