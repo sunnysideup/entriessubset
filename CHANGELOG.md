@@ -1,6 +1,6 @@
 # Entries Subset Changelog
 
-## Unreleased
+## 2.1.2 - 2024-09-30
 
 - Fixed a bug where non-unique entry type handles could cause entries to be shown incorrectly.
 
