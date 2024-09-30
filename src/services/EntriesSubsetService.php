@@ -47,13 +47,12 @@ class EntriesSubsetService extends Component
     public function getEntryTypeOptions(): array
     {
         $entryTypeOptions = array_map(function(EntryType $et) {
-
             $name = Craft::t('site', $et->name);
             $usages = array_filter($et->findUsages(), fn($usage) => $usage instanceof Section);
             if (!empty($usages)) {
                 $name = Craft::t('site', '{entryType} ({sections})', [
                     'entryType' => $name,
-                    'sections' => implode(', ', array_map(fn(Section $section) => $section->name, $usages))
+                    'sections' => implode(', ', array_map(fn(Section $section) => $section->name, $usages)),
                 ]);
             }
 
