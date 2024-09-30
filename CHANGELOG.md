@@ -1,6 +1,6 @@
 # Entries Subset Changelog
 
-## Unreleased
+## 2.1.1 - 2024-09-30
 
 - Fixed a bug where entry types could become unselected when saving the field.
 
